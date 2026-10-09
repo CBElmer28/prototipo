@@ -42,7 +42,7 @@ export default function Status() {
             : <div className="banner info">👨‍🍳 Tu pedido ya está en cocina y no puede cancelarse.</div>}
           {!cancelled && (
             <>
-              <p style={{ margin: 0, fontWeight: 700 }}>Puedes cancelar sin costo en</p>
+              <p style={{ margin: 0, fontWeight: 700 }}>{active ? 'Puedes cancelar sin costo en' : 'Tiempo de cancelación terminado'}</p>
               <div className="timer" id="timer" role="timer" aria-label="Tiempo restante para cancelar">0:{String(left).padStart(2, '0')}</div>
               <div className="bar-t" aria-hidden="true"><i style={{ width: `${(left / CANCEL_SECS) * 100}%` }} /></div>
               <ol className="track">{['Recibido', 'En cocina', 'En camino', 'Entregado'].map((t, i) => <li key={t} className={i < cur ? 'done' : i === cur ? 'cur' : ''}><span />{t}</li>)}</ol>

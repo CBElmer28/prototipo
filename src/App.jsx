@@ -20,8 +20,8 @@ export default function App() {
       <a className="skip" href="#main">Saltar al contenido</a>
       <Header />
       <main id="main" tabIndex={-1}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={loc.pathname} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
+        {/* Solo animación de entrada: el contenido nunca depende de que termine una animación de salida */}
+        <motion.div key={loc.pathname} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
             <Routes location={loc}>
               <Route path="/" element={<Home />} />
               <Route path="/carta" element={<Carta />} />
@@ -30,8 +30,7 @@ export default function App() {
               <Route path="/estado" element={<Status />} />
               <Route path="*" element={<Home />} />
             </Routes>
-          </motion.div>
-        </AnimatePresence>
+        </motion.div>
       </main>
       <footer className="foot"><div className="wrap">Prototipo académico APF2 · Interacción Hombre-Máquina · No es el sitio oficial de Pardos Chicken. Los datos ingresados no se envían a ningún servidor.</div></footer>
       <AnimatePresence>{modal && <RegisterModal key="reg" />}</AnimatePresence>
