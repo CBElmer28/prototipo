@@ -8,10 +8,18 @@ Versión dinámica del prototipo: React 18, React Router (HashRouter), Framer Mo
 - `npm run build` — genera `dist/` (estático, `base: './'`)
 - `npm test` — prueba de flujo completo (Vitest + Testing Library)
 
-## Desplegar
-- **Netlify:** build `npm run build`, publish `dist` (o arrastra `dist/` a https://app.netlify.com/drop).
-- **Vercel:** importa la carpeta; detecta Vite solo.
-- **GitHub Pages:** sube el contenido de `dist/` (rutas con `#`, no requiere reglas de redirección).
+## Desplegar en Vercel
+**Opción A – CLI (la más rápida):**
+```
+npm i -g vercel
+vercel login
+vercel --prod
+```
+Acepta los valores por defecto (Vite se detecta solo; `vercel.json` ya define build y `dist`).
+
+**Opción B – GitHub:** sube `prototipo-react` a un repo → vercel.com/new → Import → Deploy. Cada `git push` redespliega.
+
+Tras desplegar, abre la URL en una ventana de incógnito para confirmar que es pública (Settings → Deployment Protection debe estar en *Disabled* si pide login).
 
 ## Estructura
 - `src/data.js` datos, precios, validadores · `src/store.jsx` estado global y acciones
