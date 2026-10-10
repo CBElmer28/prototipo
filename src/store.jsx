@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useReducer, useRef, 
 import { CANCEL_SECS, MAXQ, newOrder, newUnit, orderTotal, unitItems } from './data.js';
 
 const KEY = 'pardos_apf2_react_v1';
-const blank = () => ({ user: null, order: newOrder(), placed: null, addr: null });
+const blank = () => ({ user: null, order: newOrder(), placed: null, addr: null, pay: 'efectivo' });
 
 function load() {
   try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.order) return s; } catch { /* sin storage */ }
@@ -27,10 +27,11 @@ function reducer(s, a) {
       return { ...s, order: units.length ? { ...o, units, qty: units.length, active: 0 } : newOrder() };
     }
     case 'addr': return { ...s, addr: a.v };
+    case 'pay': return { ...s, pay: a.v };
     case 'user': return { ...s, user: a.user };
     case 'place': {
       const code = 'PC-' + Math.random().toString(36).slice(2, 8).toUpperCase();
-      return { ...s, order: newOrder(), placed: { code, endAt: Date.now() + CANCEL_SECS * 1000, status: 'activo', total: orderTotal(o), units: o.units.map((u) => ({ items: unitItems(u).map((t) => t.name) })) } };
+      return { ...s, order: newOrder(), placed: { code, endAt: Date.now() + CANCEL_SECS * 1000, status: 'activo', total: orderTotal(o), pay: s.pay || 'efectivo', units: o.units.map((u) => ({ items: unitItems(u).map((t) => t.name) })) } };
     }
     case 'cancel': return { ...s, placed: { ...s.placed, status: 'cancelado' } };
     case 'newOrder': return { ...s, placed: null };

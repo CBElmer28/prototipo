@@ -74,7 +74,7 @@ export default function RegisterModal() {
               <Field id="nombre" label="Nombres y apellidos *" error={err('nombre')}>
                 <input {...props('nombre')} type="text" autoComplete="name" placeholder="Tal como figura en tu DNI" onChange={(e) => set('nombre', e.target.value)} />
               </Field>
-              <Field id="cel" label="Celular *" hint="9 dígitos y empieza con 9." error={err('cel')}>
+              <Field id="cel" label="Celular *" hint={`9 dígitos y empieza con 9 · ${f.cel.length}/9`} error={err('cel')}>
                 <div className="pre"><span>+51</span><input {...props('cel')} type="tel" inputMode="numeric" autoComplete="tel-national" maxLength={9} placeholder="9XXXXXXXX" onChange={digits('cel')} /></div>
               </Field>
               <Field id="email" label="Correo electrónico *" error={err('email')}>

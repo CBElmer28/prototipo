@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ADDR, CANCEL_SECS, money } from '../data.js';
+import { ADDR, CANCEL_SECS, money, payName } from '../data.js';
 import { useStore } from '../store.jsx';
 import { useLogout } from '../components/Header.jsx';
 import Steps from '../components/Steps.jsx';
@@ -68,7 +68,7 @@ export default function Status() {
           <h2 style={{ margin: 0, fontSize: 18 }}>Detalle</h2>
           {p.units.map((u, i) => <div key={i} className="item-card"><div><strong>Unidad {i + 1}</strong><ul>{u.items.map((t) => <li key={t}>{t}</li>)}</ul></div></div>)}
           <div className="total"><span>Total</span><span>{money(p.total)}</span></div>
-          <p className="hint">Entrega: {state.addr || ADDR}</p>
+          <p className="hint">Entrega: {state.addr || ADDR}<br />Pago: {payName(p.pay)}</p>
         </aside>
       </div>
     </div>

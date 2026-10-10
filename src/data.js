@@ -3,6 +3,8 @@ export const PAID = 3.9;
 export const MAXQ = 4;
 export const CANCEL_SECS = 60;
 export const ADDR = 'Av. Eglinton 123, Miraflores · 35-45 min';
+export const PAYMENTS = [['efectivo', 'Efectivo (contraentrega)'], ['pos', 'Tarjeta con POS (contraentrega)'], ['yape', 'Yape / Plin']];
+export const payName = (id) => (PAYMENTS.find((p) => p[0] === id) || PAYMENTS[0])[1];
 export const DEMO_CODE = '482913';
 
 export const GROUPS = [

@@ -38,6 +38,7 @@ describe('flujo completo APF2', () => {
 
     await user.click(screen.getByRole('button', { name: 'Revisar y confirmar pedido' }));
     await screen.findByRole('heading', { name: /Revisa tu pedido/ });
+    await user.click(screen.getByLabelText('Yape / Plin'));
     await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }));
 
     // registro con validación en vivo
@@ -49,6 +50,7 @@ describe('flujo completo APF2', () => {
     await user.clear(within(dlg).getByLabelText(/Celular/));
     await user.type(within(dlg).getByLabelText(/Celular/), '91234');
     expect(within(dlg).getByText(/Faltan 4/)).toBeTruthy();
+    expect(within(dlg).getByText(/5\/9/)).toBeTruthy();
     await user.type(within(dlg).getByLabelText(/Número de DNI/), '5678');
     await user.type(within(dlg).getByLabelText(/Nombres/), 'Juan Perez');
     await user.type(within(dlg).getByLabelText(/Celular/), '5678');
@@ -68,6 +70,7 @@ describe('flujo completo APF2', () => {
     expect(await screen.findByRole('heading', { name: 'Estado del pedido' }, { timeout: 6000 })).toBeTruthy();
     expect(document.getElementById('code').textContent).toMatch(/^PC-/);
     expect(document.getElementById('timer').textContent).toMatch(/^0:(60|59)$/);
+    expect(screen.getByText(/Pago: Yape \/ Plin/)).toBeTruthy();
     await user.click(screen.getByRole('button', { name: 'Cancelar pedido' }));
     await user.click(screen.getByRole('button', { name: 'Sí, cancelar' }));
     expect(await screen.findByText(/Pedido cancelado\. No se te cobrará/)).toBeTruthy();

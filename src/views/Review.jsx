@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ADDR, CANCEL_SECS, hasItems, missing, money, orderTotal, unitItems, unitPrice } from '../data.js';
+import { ADDR, CANCEL_SECS, PAYMENTS, hasItems, missing, money, orderTotal, unitItems, unitPrice } from '../data.js';
 import { useStore } from '../store.jsx';
 import Steps from '../components/Steps.jsx';
 
@@ -63,6 +63,14 @@ export default function Review() {
             ) : (
               <div className="ghead"><span>{state.addr || ADDR}</span><button className="link" onClick={() => setEdit(true)}>Cambiar</button></div>
             )}
+          </div>
+          <div className="panel"><h3 style={{ margin: '0 0 6px' }}>Método de pago</h3>
+            <div role="radiogroup" aria-label="Método de pago">
+              {PAYMENTS.map(([id, name]) => (
+                <label key={id} className="opt"><input type="radio" name="pay" checked={(state.pay || 'efectivo') === id} onChange={() => dispatch({ type: 'pay', v: id })} /><span className="n">{name}</span></label>
+              ))}
+            </div>
+            <p className="hint">Pagas al recibir tu pedido. Puedes cambiarlo antes de confirmar.</p>
           </div>
         </section>
         <aside className="panel sticky">
