@@ -42,7 +42,7 @@ export default function RegisterModal() {
   const set = (k, v) => setF((p) => ({ ...p, [k]: v }));
   const digits = (k) => (e) => set(k, e.target.value.replace(/\D/g, ''));
   const err = (k) => (f[k].length || sent ? V[k](f[k]) : '');
-  const props = (k) => ({ id: k, value: f[k], 'aria-invalid': !!err(k), className: f[k] && !V[k](f[k]) ? 'valid' : undefined, 'aria-describedby': `${k}-h ${k}-e` });
+  const props = (k) => ({ id: k, value: f[k], 'aria-required': true, 'aria-invalid': !!err(k), className: f[k] && !V[k](f[k]) ? 'valid' : undefined, 'aria-describedby': `${k}-h ${k}-e` });
   const termsErr = sent && !f.terms ? 'Debes aceptar los términos y la política de datos (Ley N° 29733).' : '';
 
   const submit1 = (e) => {
@@ -62,11 +62,11 @@ export default function RegisterModal() {
     <motion.div className="overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(e) => e.target === e.currentTarget && closeRegister()}>
       <motion.div ref={box} className="modal" role="dialog" aria-modal="true" aria-labelledby="reg-t" onKeyDown={onKey}
         initial={{ opacity: 0, scale: 0.94, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}>
-        <button className="x" onClick={closeRegister} aria-label="Cerrar">×</button>
+        <button className="x" type="button" onClick={closeRegister}>✕ Cerrar</button>
         {step === 1 ? (
           <>
             <h2 id="reg-t">Crea tu cuenta</h2>
-            <p className="hint" style={{ marginBottom: 12 }}>Los campos con * son obligatorios.</p>
+            <p className="hint" style={{ marginBottom: 12 }}>Paso 1 de 2 · Los campos con * son obligatorios.</p>
             <form noValidate onSubmit={submit1}>
               <Field id="dni" label="Número de DNI *" hint="No mostramos ni autocompletamos datos del titular de este DNI." error={err('dni')}>
                 <input {...props('dni')} type="text" inputMode="numeric" autoComplete="off" maxLength={8} placeholder="8 dígitos" onChange={digits('dni')} />
@@ -82,7 +82,7 @@ export default function RegisterModal() {
               </Field>
               <div className="law">
                 <strong>Ley N° 29733 — Tratamiento de datos personales</strong>
-                <label className="chk"><input type="checkbox" id="terms" checked={f.terms} onChange={(e) => set('terms', e.target.checked)} /><span>Acepto los Términos y Condiciones y la Política de Privacidad. Autorizo el tratamiento de mis datos para gestionar mi cuenta y pedidos. *</span></label>
+                <label className="chk"><input type="checkbox" id="terms" aria-required="true" aria-invalid={!!termsErr} aria-describedby="terms-e" checked={f.terms} onChange={(e) => set('terms', e.target.checked)} /><span>Acepto los Términos y Condiciones y la Política de Privacidad. Autorizo el tratamiento de mis datos para gestionar mi cuenta y pedidos. *</span></label>
                 <p className="err" id="terms-e" role="alert">{termsErr}</p>
                 <label className="chk"><input type="checkbox" id="promo" checked={f.promo} onChange={(e) => set('promo', e.target.checked)} /><span>(Opcional) Deseo recibir promociones y ofertas.</span></label>
               </div>
@@ -95,6 +95,7 @@ export default function RegisterModal() {
         ) : (
           <>
             <h2 id="reg-t">Verifica tu identidad</h2>
+            <p className="hint">Paso 2 de 2</p>
             <p>Enviamos un código de 6 dígitos a <strong>{f.email}</strong> y al celular <strong>+51 {f.cel}</strong>.</p>
             <div className="banner info">Código de prueba (demo): <strong>{DEMO_CODE}</strong></div>
             <form noValidate onSubmit={submit2}>

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { useA11y } from './a11y.jsx';
 import { CANCEL_SECS, MAXQ, newOrder, newUnit, orderTotal, unitItems } from './data.js';
 
 const KEY = 'pardos_apf2_react_v1';
@@ -31,8 +32,11 @@ function reducer(s, a) {
     case 'user': return { ...s, user: a.user };
     case 'place': {
       const code = 'PC-' + Math.random().toString(36).slice(2, 8).toUpperCase();
-      return { ...s, order: newOrder(), placed: { code, endAt: Date.now() + CANCEL_SECS * 1000, status: 'activo', total: orderTotal(o), pay: s.pay || 'efectivo', units: o.units.map((u) => ({ items: unitItems(u).map((t) => t.name) })) } };
+      const secs = a.secs || CANCEL_SECS;
+      return { ...s, order: newOrder(), placed: { code, endAt: Date.now() + secs * 1000, secs, ext: 0, status: 'activo', total: orderTotal(o), pay: s.pay || 'efectivo', units: o.units.map((u) => ({ items: unitItems(u).map((t) => t.name) })) } };
     }
+    // 2.2.1: la persona puede pedir más tiempo para cancelar (hasta 3 veces)
+    case 'extend': return s.placed && (s.placed.ext || 0) < 3 ? { ...s, placed: { ...s.placed, endAt: s.placed.endAt + 60000, secs: (s.placed.secs || CANCEL_SECS) + 60, ext: (s.placed.ext || 0) + 1 } } : s;
     case 'cancel': return { ...s, placed: { ...s.placed, status: 'cancelado' } };
     case 'newOrder': return { ...s, placed: null };
     case 'logout': return blank();
@@ -58,7 +62,14 @@ export function StoreProvider({ children }) {
     } catch { /* sin storage */ }
   }, [state]);
 
-  const notify = useCallback((msg) => { setToast({ msg, id: Date.now() }); clearTimeout(tt.current); tt.current = setTimeout(() => setToast(null), 3200); }, []);
+  const a11y = useA11y();
+  const sticky = !!a11y?.s.stickyAlerts;
+  // Avisos: 6 s por defecto; con "Avisos visibles" quedan hasta que la persona los cierre
+  const notify = useCallback((msg) => {
+    setToast({ msg, id: Date.now() }); clearTimeout(tt.current);
+    if (!sticky) tt.current = setTimeout(() => setToast(null), 6000);
+  }, [sticky]);
+  const closeToast = useCallback(() => { clearTimeout(tt.current); setToast(null); }, []);
   const openRegister = useCallback((cb) => { after.current = cb || null; setModal(true); }, []);
   const closeRegister = useCallback(() => { after.current = null; setModal(false); }, []);
   const finishRegister = useCallback((user) => {
@@ -67,5 +78,5 @@ export function StoreProvider({ children }) {
     const cb = after.current; after.current = null; if (cb) cb();
   }, [notify]);
 
-  return <Ctx.Provider value={{ state, dispatch, toast, notify, modal, openRegister, closeRegister, finishRegister }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ state, dispatch, toast, notify, closeToast, modal, openRegister, closeRegister, finishRegister }}>{children}</Ctx.Provider>;
 }

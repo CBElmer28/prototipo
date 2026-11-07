@@ -28,3 +28,14 @@ Tras desplegar, abre la URL en una ventana de incógnito para confirmar que es p
 
 ## Dinamismo añadido
 Transiciones entre pantallas, acordeones animados, skeleton de carga en la carta, filtros/búsqueda animados, barra de progreso por unidad, toasts, modal animado y total que reacciona al cambio.
+
+## v3.0 accesible (rama `v3`, APF3)
+Correcciones de la auditoría WCAG 2.1 AA de la v2.0 y opciones de accesibilidad:
+- **Foco y títulos (2.4.3, 2.4.2):** al cambiar de pantalla el foco pasa al título y cambia el título de la pestaña; si faltan opciones, el foco va al primer grupo pendiente.
+- **Nombres accesibles (4.1.2):** "Agregar Pack Ají", "Editar unidad 1"; pestañas con flechas, Inicio y Fin.
+- **Mensajes de estado (4.1.3):** el temporizador ya no se lee cada segundo; solo avisa a los 30 s, 10 s y al final.
+- **Tiempo ajustable (2.2.1):** botón "Necesito más tiempo (+60 s)" y opción de 120 s.
+- **Contraste (1.4.3):** "Incluido" más oscuro y franja oscura detrás del texto de las categorías.
+- **Etiquetas (3.3.2):** búsqueda con etiqueta visible; campos obligatorios con `aria-required`.
+- **Panel ♿ Accesibilidad:** perfiles rápidos (baja visión, movilidad reducida, lectura fácil, sordera), lupa 100–200 %, tema claro/oscuro/sistema, alto contraste, texto espaciado, subrayar enlaces, cursor grande, botones grandes, foco reforzado, sin animaciones, más tiempo, lectura fácil con ayudas paso a paso, avisos visibles que no desaparecen y lectura en voz alta.
+- **Lupa flotante 🔍:** amplía toda la pantalla y la reacomoda en una columna sin scroll horizontal.
