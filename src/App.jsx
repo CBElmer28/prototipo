@@ -5,7 +5,7 @@ import Header from './components/Header.jsx';
 import Toast from './components/Toast.jsx';
 import RegisterModal from './components/RegisterModal.jsx';
 import A11yPanel from './components/A11yPanel.jsx';
-import Magnifier from './components/Magnifier.jsx';
+import SideDock from './components/SideDock.jsx';
 import Home from './views/Home.jsx';
 import Carta from './views/Carta.jsx';
 import Customize from './views/Customize.jsx';
@@ -37,6 +37,12 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion={s.reduceMotion ? 'always' : 'user'}>
+      {/* Filtros de corrección de color para fotos (daltonización, matrices de Machado et al. 2009) */}
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
+        <filter id="cvd-protan"><feColorMatrix type="matrix" values="1 0 0 0 0 0.4789 0.4769 0.0442 0 0 0.5973 -0.6887 1.0914 0 0 0 0 0 1 0" /></filter>
+        <filter id="cvd-deutan"><feColorMatrix type="matrix" values="1 0 0 0 0 0.1628 0.7250 0.1122 0 0 0.4547 -0.6454 1.1907 0 0 0 0 0 1 0" /></filter>
+        <filter id="cvd-tritan"><feColorMatrix type="matrix" values="0.7412 -0.4072 0.6660 0 0 0.0751 0.5852 0.3397 0 0 0 0 1 0 0 0 0 0 1 0" /></filter>
+      </svg>
       <a className="skip" href="#main">Saltar al contenido</a>
       <Header />
       <main id="main" tabIndex={-1}>
@@ -54,7 +60,7 @@ export default function App() {
       <footer className="foot"><div className="wrap">Prototipo académico APF3 · v3.0 accesible · Interacción Hombre-Máquina · No es el sitio oficial de Pardos Chicken. Los datos ingresados no se envían a ningún servidor.</div></footer>
       <AnimatePresence>{modal && <RegisterModal key="reg" />}</AnimatePresence>
       <AnimatePresence>{panel && <A11yPanel key="a11y" />}</AnimatePresence>
-      <Magnifier />
+      <SideDock />
       <Toast />
     </MotionConfig>
   );

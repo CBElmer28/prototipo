@@ -24,7 +24,7 @@ export default function Carta() {
     <div className="wrap page">
       <Link to="/">← Volver</Link>
       <h1 style={{ textAlign: 'center' }}>PARDOS BRASA</h1>
-      <EasyHelp icon="📋" title="Elige tu comida" steps={['Busca la “Promoción Brasa Para Mí”.', 'Toca el botón rojo “Agregar”.']} />
+      <EasyHelp icon="list" title="Elige tu comida" steps={['Busca la “Promoción Brasa Para Mí”.', 'Toca el botón rojo “Agregar”.']} />
       <div className="tools no-simple" style={{ justifyContent: 'center' }}>
         {CATS.map(([id, name]) => <button key={id} className="chip" aria-pressed={cat === id} onClick={() => setCat(id)}>{name}</button>)}
       </div>

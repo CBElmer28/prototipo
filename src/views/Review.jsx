@@ -48,7 +48,7 @@ export default function Review() {
     <div className="wrap page">
       <h1>Revisa tu pedido antes de confirmar</h1>
       <Steps cur={2} />
-      <EasyHelp icon="✅" title="Mira tu pedido" steps={['Revisa que todo esté bien.', 'Elige cómo vas a pagar.', 'Toca “Confirmar pedido”.']} />
+      <EasyHelp icon="checkCircle" title="Mira tu pedido" steps={['Revisa que todo esté bien.', 'Elige cómo vas a pagar.', 'Toca “Confirmar pedido”.']} />
       <div className="layout">
         <section aria-label="Tu pedido">
           <AnimatePresence initial={false}>

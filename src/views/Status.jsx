@@ -6,6 +6,7 @@ import { useStore } from '../store.jsx';
 import { useLogout } from '../components/Header.jsx';
 import Steps from '../components/Steps.jsx';
 import EasyHelp from '../components/EasyHelp.jsx';
+import Icon from '../components/Icon.jsx';
 
 function useLeft(placed) {
   const calc = () => (placed ? Math.max(0, Math.ceil((placed.endAt - Date.now()) / 1000)) : 0);
@@ -52,22 +53,22 @@ export default function Status() {
     <div className="wrap page">
       <h1>Estado del pedido</h1>
       <Steps cur={cancelled ? 3 : 4} />
-      <EasyHelp icon="⏱️" title="Tu pedido está hecho" steps={['Guarda tu código.', 'Si te equivocaste, toca “Cancelar pedido” antes de que el reloj llegue a 0.', 'Si necesitas más tiempo, toca “Necesito más tiempo”.']} />
+      <EasyHelp icon="clock" title="Tu pedido está hecho" steps={['Guarda tu código.', 'Si te equivocaste, toca “Cancelar pedido” antes de que el reloj llegue a 0.', 'Si necesitas más tiempo, toca “Necesito más tiempo”.']} />
       <p className="sr-only" role="status" aria-live="polite">{say}</p>
       <div className="layout">
         <section className="panel" aria-label="Seguimiento del pedido">
           <p className="hint" style={{ margin: 0 }}>Código de tu pedido</p>
           <motion.div className="code" id="code" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>{p.code}</motion.div>
           {cancelled ? <div className="banner bad" role="alert">Pedido cancelado. No se te cobrará nada.</div>
-            : active ? <div className="banner ok" role="status"><span aria-hidden="true">✓ </span>Pedido {p.code} confirmado. Te avisaremos cuando salga de cocina.</div>
-            : <div className="banner info"><span aria-hidden="true">👨‍🍳 </span>Tu pedido ya está en cocina y no puede cancelarse.</div>}
+            : active ? <div className="banner ok" role="status"><Icon name="checkCircle" /> Pedido {p.code} confirmado. Te avisaremos cuando salga de cocina.</div>
+            : <div className="banner info"><Icon name="utensils" /> Tu pedido ya está en cocina y no puede cancelarse.</div>}
           {!cancelled && (
             <>
               <p style={{ margin: 0, fontWeight: 700 }} id="timer-l">{active ? 'Puedes cancelar sin costo en' : 'Tiempo de cancelación terminado'}</p>
               {/* role=timer no se anuncia solo; los avisos van en la región de estado de arriba */}
               <div className="timer" id="timer" role="timer" aria-labelledby="timer-l">{fmt(left)}</div>
               <div className="bar-t" aria-hidden="true"><i style={{ width: `${Math.min(100, (left / total) * 100)}%` }} /></div>
-              {canExtend && <button className="btn ghost" style={{ marginTop: '.75rem' }} onClick={extend}><span aria-hidden="true">⏱ </span>Necesito más tiempo (+60 s)</button>}
+              {canExtend && <button className="btn ghost" style={{ marginTop: '.75rem' }} onClick={extend}><Icon name="clock" /> Necesito más tiempo (+60 s)</button>}
               <ol className="track" aria-label="Etapas del pedido">{['Recibido', 'En cocina', 'En camino', 'Entregado'].map((t, i) => <li key={t} className={i < cur ? 'done' : i === cur ? 'cur' : ''} aria-current={i === cur ? 'step' : undefined}><span aria-hidden="true" />{t}{i < cur ? <span className="sr-only"> (completado)</span> : null}</li>)}</ol>
             </>
           )}

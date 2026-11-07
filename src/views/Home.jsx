@@ -26,7 +26,7 @@ export default function Home() {
       <div className="wrap page">
         {/* 1.3.1: la página tiene un título principal */}
         <h1 className="sr-only">Pardos Chicken: promociones</h1>
-        <EasyHelp icon="🍗" title="¿Qué puedo hacer aquí?" steps={['Toca el botón rojo “Pedir Promoción Brasa Para Mí”.', 'Elige tu pollo, papas, ensalada y bebida.', 'Revisa tu pedido y confírmalo.']} />
+        <EasyHelp icon="home" title="¿Qué puedo hacer aquí?" steps={['Toca el botón rojo “Pedir Promoción Brasa Para Mí”.', 'Elige tu pollo, papas, ensalada y bebida.', 'Revisa tu pedido y confírmalo.']} />
         {!state.user && <div className="banner info" role="note">¿Primera vez? <button className="link" onClick={() => openRegister()}>Crea tu cuenta</button> para confirmar tu pedido.</div>}
         <motion.section className="promo" aria-labelledby="h-promo" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <img src="img/p-regular.jpg" alt="Promoción Brasa Para Mí: 1/4 de pollo a la brasa con papas y ensalada" />

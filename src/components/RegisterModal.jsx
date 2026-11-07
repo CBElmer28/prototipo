@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { DEMO_CODE, V } from '../data.js';
 import { useStore } from '../store.jsx';
+import Icon from './Icon.jsx';
 
 function Field({ id, label, hint, error, children }) {
   return (
@@ -62,7 +63,7 @@ export default function RegisterModal() {
     <motion.div className="overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(e) => e.target === e.currentTarget && closeRegister()}>
       <motion.div ref={box} className="modal" role="dialog" aria-modal="true" aria-labelledby="reg-t" onKeyDown={onKey}
         initial={{ opacity: 0, scale: 0.94, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}>
-        <button className="x" type="button" onClick={closeRegister}>✕ Cerrar</button>
+        <button className="x" type="button" onClick={closeRegister}><Icon name="x" /> Cerrar</button>
         {step === 1 ? (
           <>
             <h2 id="reg-t">Crea tu cuenta</h2>

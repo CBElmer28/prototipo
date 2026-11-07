@@ -5,50 +5,41 @@
    - Colores como variables: tema claro, oscuro y alto contraste.
    ========================================================================== */
 :root{
-  --bg:#f6f4f1; --surface:#ffffff; --surface-2:#f1f2f4; --text:#1f2328; --muted:#5c636e;
-  --line:#d9dde3; --control:#6b7280; --field:#6b7280;
-  --brand:#c8102e; --brand-d:#9d0c24; --brand-text:#b00e28; --on-brand:#ffffff; --brand-soft:#fdeef0;
-  --ok:#146c31; --okbg:#e6f4ea; --warnbg:#fff4e0; --warn-text:#7a4f00;
-  --info-bg:#eaf1fe; --info-text:#1a3f8f; --bad-bg:#fdeaed; --bad-text:#8f0b21;
-  --focus:#0b57d0; --focus-halo:#ffffff;
-  --sel-bg:#fff5f6; --invalid-bg:#fff8f9; --chip-on:#1f2328; --chip-on-text:#ffffff;
+  --bg-b:#f6f4f1; --surface-b:#ffffff; --surface-2-b:#f1f2f4; --text-b:#1f2328; --muted-b:#5c636e;
+  --line-b:#d9dde3; --control-b:#6b7280; --field-b:#6b7280;
+  --brand-b:#c8102e; --brand-d-b:#9d0c24; --brand-text-b:#b00e28; --on-brand:#ffffff; --brand-soft:#fdeef0;
+  --ok-b:#146c31; --okbg-b:#e6f4ea; --warnbg-b:#fff4e0; --warn-text-b:#7a4f00;
+  --info-bg-b:#eaf1fe; --info-text-b:#1a3f8f; --bad-bg-b:#fdeaed; --bad-text-b:#8f0b21;
+  --focus-b:#0b57d0; --focus-halo-b:#ffffff;
+  --sel-bg-b:#fff5f6; --invalid-bg-b:#fff8f9; --chip-on:#1f2328; --chip-on-text:#ffffff;
   --toast-bg:#222222; --toast-text:#ffffff; --code-bg:#111111; --code-text:#ffffff;
-  --disabled-bg:#d5d8dd; --disabled-text:#3d434b; --skel1:#eceef1; --skel2:#f6f7f9;
+  --disabled-bg-b:#d5d8dd; --disabled-text-b:#3d434b; --skel1:#eceef1; --skel2:#f6f7f9;
   --overlay:rgba(0,0,0,.6); --track:#e6e8ec; --yellow:#f7b500; --shadow:rgba(0,0,0,.15);
   color-scheme:light;
 }
 html[data-theme=dark]{
-  --bg:#121417; --surface:#1c1f24; --surface-2:#262a31; --text:#f1f3f5; --muted:#b9bfc8;
-  --line:#3a3f47; --control:#9aa1ab; --field:#9aa1ab;
-  --brand:#d6183b; --brand-d:#b30f2b; --brand-text:#ff9aaa; --on-brand:#ffffff; --brand-soft:#3a1a20;
-  --ok:#7ad69a; --okbg:#143222; --warnbg:#3a2a08; --warn-text:#ffd27a;
-  --info-bg:#16233d; --info-text:#b3cbff; --bad-bg:#3a1219; --bad-text:#ffb8c3;
-  --focus:#8ab4ff; --focus-halo:#121417;
-  --sel-bg:#2c1a1e; --invalid-bg:#2c1a1e; --chip-on:#f1f3f5; --chip-on-text:#121417;
+  --bg-b:#121417; --surface-b:#1c1f24; --surface-2-b:#262a31; --text-b:#f1f3f5; --muted-b:#b9bfc8;
+  --line-b:#3a3f47; --control-b:#9aa1ab; --field-b:#9aa1ab;
+  --brand-b:#d6183b; --brand-d-b:#b30f2b; --brand-text-b:#ff9aaa; --on-brand:#ffffff; --brand-soft:#3a1a20;
+  --ok-b:#7ad69a; --okbg-b:#143222; --warnbg-b:#3a2a08; --warn-text-b:#ffd27a;
+  --info-bg-b:#16233d; --info-text-b:#b3cbff; --bad-bg-b:#3a1219; --bad-text-b:#ffb8c3;
+  --focus-b:#8ab4ff; --focus-halo-b:#121417;
+  --sel-bg-b:#2c1a1e; --invalid-bg-b:#2c1a1e; --chip-on:#f1f3f5; --chip-on-text:#121417;
   --toast-bg:#f1f3f5; --toast-text:#121417; --code-bg:#000000; --code-text:#ffffff;
-  --disabled-bg:#3a3f47; --disabled-text:#d5d8dd; --skel1:#262a31; --skel2:#30353d;
+  --disabled-bg-b:#3a3f47; --disabled-text-b:#d5d8dd; --skel1:#262a31; --skel2:#30353d;
   --overlay:rgba(0,0,0,.75); --track:#3a3f47; --shadow:rgba(0,0,0,.5);
   color-scheme:dark;
 }
-/* Alto contraste (se combina con claro u oscuro) */
-html.hc{
-  --text:#000000; --muted:#1f1f1f; --line:#000000; --control:#000000; --field:#000000;
-  --brand:#9d0c24; --brand-d:#6e0819; --brand-text:#8a0a1f; --ok:#0a4d20; --okbg:#ffffff;
-  --info-text:#0b2a66; --bad-text:#6e0819; --focus:#0040c1; --surface-2:#ffffff; --bg:#ffffff;
-  --warn-text:#5c3b00; --disabled-bg:#e8e8e8; --disabled-text:#000000;
-}
-html.hc[data-theme=dark]{
-  --bg:#000000; --surface:#000000; --surface-2:#000000; --text:#ffffff; --muted:#f0f0f0;
-  --line:#ffffff; --control:#ffffff; --field:#ffffff; --brand:#d6183b; --brand-text:#ffc2cc;
-  --ok:#9dffbb; --okbg:#000000; --info-bg:#000000; --info-text:#d6e3ff; --bad-bg:#000000; --bad-text:#ffc2cc;
-  --warnbg:#000000; --warn-text:#ffe08a; --focus:#ffd400; --focus-halo:#000000;
-  --sel-bg:#000000; --invalid-bg:#000000; --disabled-bg:#1f1f1f; --disabled-text:#ffffff;
-}
+/* Contraste regulable: cada color se mezcla entre la paleta base (-b) y la de alto contraste (-h)
+   según --hcp (0 % = normal, 100 % = máximo). Lo controla el deslizador del panel. */
+:root{--hcp:0%;--bad-text-h:#6e0819; --bg-h:#ffffff; --brand-h:#9d0c24; --brand-d-h:#6e0819; --brand-text-h:#8a0a1f; --control-h:#000000; --disabled-bg-h:#e8e8e8; --disabled-text-h:#000000; --field-h:#000000; --focus-h:#0040c1; --info-text-h:#0b2a66; --line-h:#000000; --muted-h:#1f1f1f; --ok-h:#0a4d20; --okbg-h:#ffffff; --surface-2-h:#ffffff; --text-h:#000000; --warn-text-h:#5c3b00;}
+html[data-theme=dark]{--bad-bg-h:#000000; --bad-text-h:#ffc2cc; --bg-h:#000000; --brand-h:#d6183b; --brand-d-h:#6e0819; --brand-text-h:#ffc2cc; --control-h:#ffffff; --disabled-bg-h:#1f1f1f; --disabled-text-h:#ffffff; --field-h:#ffffff; --focus-h:#ffd400; --focus-halo-h:#000000; --info-bg-h:#000000; --info-text-h:#d6e3ff; --invalid-bg-h:#000000; --line-h:#ffffff; --muted-h:#f0f0f0; --ok-h:#9dffbb; --okbg-h:#000000; --sel-bg-h:#000000; --surface-h:#000000; --surface-2-h:#000000; --text-h:#ffffff; --warn-text-h:#ffe08a; --warnbg-h:#000000;}
+html{--bad-bg:color-mix(in srgb,var(--bad-bg-h,var(--bad-bg-b)) var(--hcp),var(--bad-bg-b)); --bad-text:color-mix(in srgb,var(--bad-text-h,var(--bad-text-b)) var(--hcp),var(--bad-text-b)); --bg:color-mix(in srgb,var(--bg-h,var(--bg-b)) var(--hcp),var(--bg-b)); --brand:color-mix(in srgb,var(--brand-h,var(--brand-b)) var(--hcp),var(--brand-b)); --brand-d:color-mix(in srgb,var(--brand-d-h,var(--brand-d-b)) var(--hcp),var(--brand-d-b)); --brand-text:color-mix(in srgb,var(--brand-text-h,var(--brand-text-b)) var(--hcp),var(--brand-text-b)); --control:color-mix(in srgb,var(--control-h,var(--control-b)) var(--hcp),var(--control-b)); --disabled-bg:color-mix(in srgb,var(--disabled-bg-h,var(--disabled-bg-b)) var(--hcp),var(--disabled-bg-b)); --disabled-text:color-mix(in srgb,var(--disabled-text-h,var(--disabled-text-b)) var(--hcp),var(--disabled-text-b)); --field:color-mix(in srgb,var(--field-h,var(--field-b)) var(--hcp),var(--field-b)); --focus:color-mix(in srgb,var(--focus-h,var(--focus-b)) var(--hcp),var(--focus-b)); --focus-halo:color-mix(in srgb,var(--focus-halo-h,var(--focus-halo-b)) var(--hcp),var(--focus-halo-b)); --info-bg:color-mix(in srgb,var(--info-bg-h,var(--info-bg-b)) var(--hcp),var(--info-bg-b)); --info-text:color-mix(in srgb,var(--info-text-h,var(--info-text-b)) var(--hcp),var(--info-text-b)); --invalid-bg:color-mix(in srgb,var(--invalid-bg-h,var(--invalid-bg-b)) var(--hcp),var(--invalid-bg-b)); --line:color-mix(in srgb,var(--line-h,var(--line-b)) var(--hcp),var(--line-b)); --muted:color-mix(in srgb,var(--muted-h,var(--muted-b)) var(--hcp),var(--muted-b)); --ok:color-mix(in srgb,var(--ok-h,var(--ok-b)) var(--hcp),var(--ok-b)); --okbg:color-mix(in srgb,var(--okbg-h,var(--okbg-b)) var(--hcp),var(--okbg-b)); --sel-bg:color-mix(in srgb,var(--sel-bg-h,var(--sel-bg-b)) var(--hcp),var(--sel-bg-b)); --surface:color-mix(in srgb,var(--surface-h,var(--surface-b)) var(--hcp),var(--surface-b)); --surface-2:color-mix(in srgb,var(--surface-2-h,var(--surface-2-b)) var(--hcp),var(--surface-2-b)); --text:color-mix(in srgb,var(--text-h,var(--text-b)) var(--hcp),var(--text-b)); --warn-text:color-mix(in srgb,var(--warn-text-h,var(--warn-text-b)) var(--hcp),var(--warn-text-b)); --warnbg:color-mix(in srgb,var(--warnbg-h,var(--warnbg-b)) var(--hcp),var(--warnbg-b));}
 
 *{box-sizing:border-box}
 html{font-size:100%}
 body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
-.wrap{max-width:1080px;margin:0 auto;padding:0 1rem}
+.wrap{max-width:67.5rem;margin:0 auto;padding:0 1rem}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:.5rem .75rem;z-index:100}.skip:focus{left:0}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 5px var(--focus-halo)}
@@ -73,8 +64,6 @@ img{max-width:100%}
 .btn.ghost{background:var(--surface);color:var(--brand-text);border-color:var(--brand-text)}.btn.ghost:hover{background:var(--brand-soft)}
 .btn.sm{padding:0 .875rem;font-size:.875rem}
 .btn[disabled]{background:var(--disabled-bg);border-color:var(--disabled-bg);color:var(--disabled-text);cursor:not-allowed}
-.btn.a11y-btn{background:var(--surface);color:var(--text);border-color:var(--control)}
-.btn.a11y-btn:hover{background:var(--surface-2)}
 .link{background:none;border:0;color:var(--brand-text);text-decoration:underline;min-height:2.75rem;padding:0 .5rem;font-weight:600}
 
 /* ---------- inicio ---------- */
@@ -175,7 +164,7 @@ img{max-width:100%}
 .field input.valid{border-color:var(--ok)}
 .hint{font-size:.8125rem;color:var(--muted);margin:.2rem 0 0}
 .err{font-size:.8125rem;color:var(--bad-text);font-weight:700;margin:.2rem 0 0}
-.err:not(:empty)::before{content:"⚠ "}
+.err:not(:empty)::before{content:"";display:inline-block;width:1em;height:1em;margin-right:.35em;vertical-align:-.15em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E") center/contain no-repeat}
 .chk{display:flex;gap:.625rem;align-items:flex-start;margin:.625rem 0;font-size:.875rem}
 .chk input{width:1.375rem;height:1.375rem;flex:none;accent-color:var(--brand);margin-top:.0625rem}
 .pre{display:flex;gap:.375rem}.pre span{display:grid;place-items:center;min-height:2.75rem;padding:0 .75rem;border:2px solid var(--field);border-radius:.5rem;background:var(--surface-2);font-weight:700}
@@ -240,13 +229,6 @@ small{font-weight:400;color:var(--muted);font-size:.8125rem}
 .seg button{min-height:2.75rem;padding:0 .875rem;border-radius:.5rem;border:2px solid var(--control);background:var(--surface);color:var(--text);font-weight:700}
 .seg button[aria-pressed=true]{background:var(--chip-on);color:var(--chip-on-text);border-color:var(--chip-on)}
 
-/* ---------- lupa flotante ---------- */
-.lupa{position:fixed;right:1rem;bottom:6rem;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
-.lupa-fab{width:3.5rem;height:3.5rem;border-radius:50%;border:3px solid var(--on-brand);background:var(--brand);color:var(--on-brand);font-size:1.5rem;box-shadow:0 4px 16px var(--shadow)}
-.lupa-bar{display:flex;align-items:center;gap:.375rem;background:var(--surface);border:2px solid var(--control);border-radius:.75rem;padding:.375rem;box-shadow:0 4px 16px var(--shadow)}
-.lupa-bar button{min-width:2.75rem;height:2.75rem;border-radius:.5rem;border:2px solid var(--control);background:var(--surface);color:var(--text);font-weight:800;font-size:1.125rem}
-.lupa-bar output{min-width:3.5rem;text-align:center;font-weight:800}
-
 /* ---------- ajustes que activa el panel ---------- */
 html.spacing body{letter-spacing:.06em;word-spacing:.16em;line-height:1.8}
 html.spacing p,html.spacing li{margin-bottom:1em}
@@ -254,18 +236,19 @@ html.links a,html.links .link{text-decoration:underline!important;text-decoratio
 html.links .btn,html.links .tile{text-decoration:none!important}
 html.focus-strong :focus-visible{outline:5px solid var(--focus);outline-offset:3px;box-shadow:0 0 0 9px var(--focus-halo)}
 html.big-targets .btn,html.big-targets .chip,html.big-targets .tab,html.big-targets .opt,html.big-targets .seg button{min-height:3.5rem}
-html.big-targets .qty button,html.big-targets .lupa-bar button{width:3.5rem;height:3.5rem}
+html.big-targets .qty button,html.big-targets .lupa-bar button,html.big-targets .dock-btn{width:3.5rem;height:3.5rem}
 html.big-targets .opt input,html.big-targets .chk input{width:1.75rem;height:1.75rem}
 html.big-targets .actions,html.big-targets .tools,html.big-targets .tabs{gap:1rem}
 html.big-cursor,html.big-cursor *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M6 4l30 20-13 3 8 15-6 3-8-15-11 9z' fill='%23000' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E") 6 4,auto!important}
 html.simple .no-simple{display:none!important}
 
-/* Lupa ≥ 150 %: todo a una columna para que no aparezca scroll horizontal */
-html.zoom-xl .layout,html.zoom-xl .promo{grid-template-columns:1fr}
-html.zoom-xl .tiles{grid-template-columns:1fr}
-html.zoom-xl .tile-w.brasa{grid-row:auto}
-html.zoom-xl .sticky{position:static}
-html.zoom-xl .nav{flex-basis:100%;order:3}
+/* Ancho útil insuficiente (pantalla pequeña o lupa alta): todo a una columna, sin scroll horizontal */
+html.narrow .layout,html.narrow .promo{grid-template-columns:1fr}
+html.narrow .tiles{grid-template-columns:1fr}
+html.narrow .tile-w.brasa{grid-row:auto}
+html.narrow .sticky{position:static}
+html.narrow .ghead{align-items:flex-start}
+html.narrow .page h1{font-size:1.5rem}
 html.zoom-xl .topbar{position:static}
 
 @media(max-width:820px){.layout{grid-template-columns:1fr}.sticky{position:static}.promo{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}.tile-w.brasa{grid-row:auto}.nav{flex-basis:100%;order:3}}
@@ -274,3 +257,82 @@ html.reduce-motion *{animation:none!important;transition:none!important}
 
 /* placeholders legibles en todos los temas */
 ::placeholder{color:var(--muted);opacity:1}
+
+/* ---------- íconos ---------- */
+.ic{flex:none;vertical-align:-.2em}
+.btn .ic,.seg .ic,.x .ic,.preset .ic{vertical-align:middle}
+.state .ic{vertical-align:-.1em}
+.toast .ic{flex:none}
+
+/* ---------- panel lateral ---------- */
+.drawer-overlay{position:fixed;inset:0;background:var(--overlay);z-index:90}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(30rem,100vw);background:var(--surface);color:var(--text);overflow-y:auto;padding:1.25rem 1.375rem 2rem;box-shadow:-8px 0 32px var(--shadow);border-left:1px solid var(--line)}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;gap:.75rem;position:sticky;top:-1.25rem;background:var(--surface);padding:.5rem 0;z-index:1}
+.drawer-head h2{margin:0;font-size:1.25rem;display:flex;align-items:center;gap:.5rem}
+.drawer .x{min-width:2.75rem;height:2.75rem;display:inline-flex;align-items:center;gap:.375rem;border:2px solid var(--control);border-radius:.5rem;background:var(--surface);font-weight:700;padding:0 .75rem}
+.drawer .lbl{font-weight:700;margin:.75rem 0 .25rem}
+.seg button{display:inline-flex;align-items:center;gap:.375rem}
+.modal .x{display:inline-flex;align-items:center;gap:.375rem}
+
+/* ---------- cabecera adaptable (botón Menú) ---------- */
+.brand{min-width:0}
+.brand-t{white-space:nowrap}
+html.narrow .bar{flex-wrap:nowrap;justify-content:space-between}
+.menu-btn{min-height:2.75rem;display:inline-flex;align-items:center;gap:.5rem;padding:0 1rem;border:2px solid var(--control);border-radius:.5rem;background:var(--surface);color:var(--text);font-weight:700;flex:none}
+.menu-btn[aria-expanded=true]{background:var(--chip-on);color:var(--chip-on-text);border-color:var(--chip-on)}
+.menu-panel{border-top:1px solid var(--line);background:var(--surface);padding:.75rem 0 1rem;box-shadow:0 8px 16px var(--shadow)}
+.menu-nav{display:flex;flex-direction:column;margin-bottom:.75rem}
+.menu-nav a{display:flex;align-items:center;min-height:3rem;padding:0 .5rem;border-bottom:1px solid var(--line);color:var(--text);font-weight:700;text-decoration:none;text-transform:uppercase}
+.menu-nav a[aria-current=page]{color:var(--brand-text);text-decoration:underline;text-underline-offset:.3em}
+.menu-actions{display:flex;flex-direction:column;gap:.5rem}
+.menu-actions .btn{width:100%}
+.menu-actions .hello{padding:.25rem .5rem}
+
+/* ---------- pestañas laterales (en px: no crecen con la lupa para no tapar el contenido) ---------- */
+.dock{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;align-items:flex-end;font-size:12px}
+.dock-btn{width:84px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 4px;line-height:1.2;
+  background:var(--brand);color:var(--on-brand);border:2px solid var(--brand);border-right:0;border-radius:12px 0 0 12px;font-size:12px;font-weight:700;box-shadow:-2px 2px 12px var(--shadow)}
+.dock-btn .ic{width:28px;height:28px}
+.dock-btn:hover{background:var(--brand-d);border-color:var(--brand-d)}
+.dock-btn[aria-expanded=true]{background:var(--chip-on);color:var(--chip-on-text);border-color:var(--chip-on)}
+.dock-lupa{position:relative;display:flex;align-items:center}
+.lupa-bar{position:absolute;right:calc(100% + 8px);top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--control);border-radius:12px;padding:6px;box-shadow:0 4px 16px var(--shadow);white-space:nowrap;font-size:16px}
+.lupa-bar button{min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--control);background:var(--surface);color:var(--text);font-weight:800}
+.lupa-bar button .ic{width:22px;height:22px}
+.lupa-bar button.txt{padding:0 10px;font-size:14px}
+.lupa-bar button[disabled]{opacity:.45;cursor:not-allowed}
+.lupa-bar output{min-width:56px;text-align:center;font-weight:800}
+html.big-targets .dock-btn{width:96px;min-height:88px}
+@media(max-width:600px){.dock{top:auto;bottom:88px;transform:none}.dock-btn{width:64px;min-height:60px;font-size:11px}.dock-btn .ic{width:24px;height:24px}}
+
+/* ---------- selector de daltonismo ---------- */
+.seg.cvd{display:grid;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr))}
+.seg.cvd button{flex-direction:column;align-items:flex-start;justify-content:center;padding:.375rem .625rem;min-height:3.25rem;text-align:left;gap:0}
+.cvd-t{font-weight:800}.cvd-d{font-size:.75rem;font-weight:400;opacity:.9}
+
+/* ---------- modos de daltonismo ---------- */
+/* Rojo-verde (protanopia y deuteranopia): "listo" en azul y "falta / error" en naranja oscuro */
+html.cvd-protan,html.cvd-deutan{--ok-b:#0b5cad;--okbg-b:#e7f0fb;--bad-text-b:#8f3d00;--bad-bg-b:#fff0e3;--invalid-bg-b:#fff7f0;--ok-h:#08417a;--bad-text-h:#6b2e00}
+html[data-theme=dark].cvd-protan,html[data-theme=dark].cvd-deutan{--ok-b:#8cc2ff;--okbg-b:#132a45;--bad-text-b:#ffbe85;--bad-bg-b:#3a2210;--invalid-bg-b:#2a1b10;--ok-h:#b8daff;--bad-text-h:#ffd2a8}
+/* Azul-amarillo (tritanopia): avisos informativos en gris neutro y foco magenta */
+html.cvd-tritan{--info-bg-b:#eeeff1;--info-text-b:#24282e;--focus-b:#a3005f;--info-text-h:#000000;--focus-h:#7a0047}
+html[data-theme=dark].cvd-tritan{--info-bg-b:#262a31;--info-text-b:#eceef1;--focus-b:#ff7ac8;--info-text-h:#ffffff;--focus-h:#ffa6dc}
+/* Fotos corregidas con matriz de color */
+html.cvd-protan main img{filter:url(#cvd-protan)}
+html.cvd-deutan main img{filter:url(#cvd-deutan)}
+html.cvd-tritan main img{filter:url(#cvd-tritan)}
+/* Monocromía: el estado se entiende por forma, borde y texto, no por color */
+html.cvd-achro .state,html.cvd-achro .tagp,html.cvd-achro .banner{border:2px solid currentColor}
+html.cvd-achro .acc.is-miss{border-style:dashed;border-width:3px}
+html.cvd-achro .acc.is-ok{border-width:3px}
+html.cvd-achro .steps li.cur{border-top-width:8px;text-decoration:underline}
+html.cvd-achro a,html.cvd-achro .link{text-decoration:underline;text-decoration-thickness:2px}
+html.cvd-achro .tab[aria-selected=true]{outline:3px solid var(--text);outline-offset:2px}
+
+/* Con lupa alta, reservar espacio a la derecha para las pestañas laterales */
+html.zoom-xl .wrap{padding-right:100px}
+@media(max-width:600px){html.zoom-xl .wrap{padding-right:1rem}}
+
+/* deslizador de contraste */
+.range{display:block;width:100%;height:2.75rem;accent-color:var(--brand);cursor:pointer}
+.range-scale{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-top:-.25rem}

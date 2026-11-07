@@ -7,7 +7,7 @@ export const ZOOMS = [100, 125, 150, 175, 200];
 export const DEFAULTS = {
   zoom: 100,            // lupa: tamaño de toda la interfaz (rem)
   theme: 'system',      // 'light' | 'dark' | 'system'
-  contrast: false,      // alto contraste
+  contrast: 0,          // intensidad del contraste: 0 (normal) a 100 (máximo)
   spacing: false,       // texto espaciado (lectura)
   links: false,         // subrayar enlaces
   focusStrong: false,   // foco más grueso
@@ -17,18 +17,31 @@ export const DEFAULTS = {
   simple: false,        // lectura fácil: ayudas paso a paso y menos opciones
   stickyAlerts: false,  // avisos que no desaparecen solos + más visibles
   extraTime: false,     // más tiempo para cancelar (120 s)
+  cvd: 'none',          // daltonismo: 'none' | 'protan' | 'deutan' | 'tritan' | 'achro'
 };
+
+export const CVD = [
+  ['none', 'Ninguno', 'Colores normales'],
+  ['protan', 'Protanopia', 'Dificultad con el rojo'],
+  ['deutan', 'Deuteranopia', 'Dificultad con el verde'],
+  ['tritan', 'Tritanopia', 'Dificultad con el azul y el amarillo'],
+  ['achro', 'Monocromía', 'No distingue colores'],
+];
 
 // Perfiles rápidos pensados en las personas del proyecto
 export const PRESETS = [
-  { id: 'vision', icon: '👁️', name: 'Baja visión', set: { zoom: 150, contrast: true, focusStrong: true, links: true, bigCursor: true } },
-  { id: 'motor', icon: '✋', name: 'Movilidad reducida', set: { bigTargets: true, focusStrong: true, extraTime: true, reduceMotion: true, stickyAlerts: true } },
-  { id: 'simple', icon: '🧩', name: 'Lectura fácil', set: { simple: true, spacing: true, zoom: 125, reduceMotion: true, stickyAlerts: true, extraTime: true } },
-  { id: 'deaf', icon: '👂', name: 'Sordera o sin audio', set: { stickyAlerts: true } },
+  { id: 'vision', name: 'Baja visión', set: { zoom: 150, contrast: 100, focusStrong: true, links: true, bigCursor: true } },
+  { id: 'motor', name: 'Movilidad reducida', set: { bigTargets: true, focusStrong: true, extraTime: true, reduceMotion: true, stickyAlerts: true } },
+  { id: 'simple', name: 'Lectura fácil', set: { simple: true, spacing: true, zoom: 125, reduceMotion: true, stickyAlerts: true, extraTime: true } },
+  { id: 'deaf', name: 'Sordera o sin audio', set: { stickyAlerts: true } },
 ];
 
 function load() {
-  try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch { return { ...DEFAULTS }; }
+  try {
+    const v = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') };
+    if (typeof v.contrast === 'boolean') v.contrast = v.contrast ? 100 : 0; // ajustes guardados de la versión anterior
+    return v;
+  } catch { return { ...DEFAULTS }; }
 }
 
 const Ctx = createContext(null);
@@ -41,14 +54,28 @@ function systemDark() {
 export function A11yProvider({ children }) {
   const [s, setS] = useState(load);
   const [panel, setPanel] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+
+  // Ancho útil real = ancho de la ventana ÷ lupa. Si no alcanza, la interfaz pasa a una columna
+  // y la cabecera usa el botón Menú (responsive también cuando se agranda con la lupa).
+  useEffect(() => {
+    const calc = () => setNarrow((window.innerWidth * 100) / s.zoom < 880);
+    calc();
+    window.addEventListener('resize', calc);
+    return () => window.removeEventListener('resize', calc);
+  }, [s.zoom]);
+
+  useEffect(() => { document.documentElement.classList.toggle('narrow', narrow); }, [narrow]);
 
   useEffect(() => {
     try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* sin storage */ }
     const h = document.documentElement;
     h.style.fontSize = s.zoom + '%';
+    h.style.setProperty('--hcp', s.contrast + '%');
     h.dataset.theme = s.theme === 'system' ? (systemDark() ? 'dark' : 'light') : s.theme;
-    const cls = { hc: s.contrast, spacing: s.spacing, links: s.links, 'focus-strong': s.focusStrong, 'big-targets': s.bigTargets,
-      'big-cursor': s.bigCursor, 'reduce-motion': s.reduceMotion, simple: s.simple, 'alerts-strong': s.stickyAlerts, 'zoom-xl': s.zoom >= 150 };
+    const cls = { hc: s.contrast > 0, spacing: s.spacing, links: s.links, 'focus-strong': s.focusStrong, 'big-targets': s.bigTargets,
+      'big-cursor': s.bigCursor, 'reduce-motion': s.reduceMotion, simple: s.simple, 'alerts-strong': s.stickyAlerts, 'zoom-xl': s.zoom >= 150,
+      'cvd-protan': s.cvd === 'protan', 'cvd-deutan': s.cvd === 'deutan', 'cvd-tritan': s.cvd === 'tritan', 'cvd-achro': s.cvd === 'achro' };
     Object.entries(cls).forEach(([c, on]) => h.classList.toggle(c, !!on));
   }, [s]);
 
@@ -62,7 +89,7 @@ export function A11yProvider({ children }) {
     return { ...p, zoom: n };
   }), []);
 
-  const value = useMemo(() => ({ s, set, toggle, applyPreset, reset, zoomStep, panel, setPanel }), [s, set, toggle, applyPreset, reset, zoomStep, panel]);
+  const value = useMemo(() => ({ s, set, toggle, applyPreset, reset, zoomStep, panel, setPanel, narrow }), [s, set, toggle, applyPreset, reset, zoomStep, panel, narrow]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

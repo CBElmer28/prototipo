@@ -4,12 +4,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ADDONS, BASE, GROUPS, MAXQ, money, missing, optOf, orderTotal, unitItems } from '../data.js';
 import { useStore } from '../store.jsx';
 import EasyHelp from '../components/EasyHelp.jsx';
+import Icon from '../components/Icon.jsx';
 
 const PriceTag = ({ p }) => (p === 0 ? <span className="tagp inc">Incluido</span> : <span className="tagp pay">+ {money(p)}</span>);
 
 function StateTag({ done, warn }) {
-  if (done) return <span className="state okk"><span aria-hidden="true">✓</span> Listo</span>;
-  if (warn) return <span className="state miss"><span aria-hidden="true">⚠</span> Falta elegir</span>;
+  if (done) return <span className="state okk"><Icon name="check" size="1em" /> Listo</span>;
+  if (warn) return <span className="state miss"><Icon name="alert" size="1em" /> Falta elegir</span>;
   return <span className="state req">Obligatorio</span>;
 }
 
@@ -24,7 +25,7 @@ function Group({ g, u, o, idx }) {
     <div className={`acc ${sel ? 'is-ok' : warn ? 'is-miss' : ''}`} id={`grp-${g.id}`}>
       <button className="acc-h" aria-expanded={open} aria-controls={`body-${g.id}`} onClick={() => setForced((f) => ({ ...f, [key]: !open }))}>
         <span><strong>{g.name}:</strong>{sel && <span className="selv"> ({sel[1]})</span>}</span>
-        <span className="acc-r"><StateTag done={!!sel} warn={warn} /><motion.span aria-hidden="true" animate={{ rotate: open ? 180 : 0 }}>▾</motion.span></span>
+        <span className="acc-r"><StateTag done={!!sel} warn={warn} /><motion.span aria-hidden="true" style={{ display: 'inline-flex' }} animate={{ rotate: open ? 180 : 0 }}><Icon name="chevron" /></motion.span></span>
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -85,12 +86,12 @@ export default function Customize() {
           <button aria-label="Agregar un combo" disabled={o.qty >= MAXQ} onClick={() => { dispatch({ type: 'qty+' }); notify(`Unidad ${o.qty + 1} agregada: personalízala en su pestaña.`); }}>+</button>
         </div>
       </div>
-      <EasyHelp icon="🍽️" title="Arma tu combo" steps={['Elige una opción en cada cuadro.', 'Cuando todo diga “✓ Listo”, toca “Revisar y confirmar pedido”.']} />
+      <EasyHelp icon="utensils" title="Arma tu combo" steps={['Elige una opción en cada cuadro.', 'Cuando todo diga “Listo”, toca “Revisar y confirmar pedido”.']} />
       <div className="layout">
         <section aria-label="Foto y precio"><img className="hero-img" src="img/p-regular.jpg" alt="Promoción Brasa Para Mí: 1/4 de pollo a la brasa con papas y ensalada" /><p className="price" style={{ fontSize: '1.5rem' }}>{money(BASE)} <small>por unidad</small></p></section>
         <section aria-label="Personalización">
           <div className="prog">
-            <div className="prog-t" aria-live="polite">Unidad {o.active + 1} · Paso {Math.min(done + 1, GROUPS.length)} de {GROUPS.length} · {miss ? `faltan ${miss} opción(es) obligatoria(s)` : 'todo listo ✓'}</div>
+            <div className="prog-t" aria-live="polite">Unidad {o.active + 1} · Paso {Math.min(done + 1, GROUPS.length)} de {GROUPS.length} · {miss ? `faltan ${miss} opción(es) obligatoria(s)` : 'todo listo'}</div>
             <div className="bar-t" role="progressbar" aria-label={`Avance de la Unidad ${o.active + 1}`} aria-valuemin={0} aria-valuemax={GROUPS.length} aria-valuenow={done}><motion.i animate={{ width: `${(done / GROUPS.length) * 100}%` }} /></div>
           </div>
           <div className="tabrow">
@@ -98,12 +99,12 @@ export default function Customize() {
               {o.units.map((x, i) => (
                 <button key={i} className="tab" role="tab" id={`tab-${i}`} aria-controls="unit-panel" aria-selected={i === o.active} tabIndex={i === o.active ? 0 : -1} onClick={() => dispatch({ type: 'tab', i })}>
                   Unidad {i + 1} {missing(x).length
-                    ? <><span className="dot" aria-hidden="true">●</span><span className="sr-only">, faltan opciones</span></>
-                    : <><span className="okd" aria-hidden="true">✓</span><span className="sr-only">, completa</span></>}
+                    ? <><span className="dot"><Icon name="dot" size="1em" /></span><span className="sr-only">, faltan opciones</span></>
+                    : <><span className="okd"><Icon name="check" size="1em" /></span><span className="sr-only">, completa</span></>}
                 </button>
               ))}
             </div>
-            {o.active > 0 && <button className="btn ghost sm" onClick={() => { dispatch({ type: 'copy' }); notify(`Copiaste la Unidad 1 en la Unidad ${o.active + 1}.`); }}><span aria-hidden="true">⧉</span> Copiar de Unidad 1</button>}
+            {o.active > 0 && <button className="btn ghost sm" onClick={() => { dispatch({ type: 'copy' }); notify(`Copiaste la Unidad 1 en la Unidad ${o.active + 1}.`); }}><Icon name="copy" /> Copiar de Unidad 1</button>}
           </div>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div key={o.active} id="unit-panel" role="tabpanel" aria-labelledby={`tab-${o.active}`} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.15 }}>
@@ -119,7 +120,7 @@ export default function Customize() {
                   <img src={`img/${a.img}.jpg`} alt={`Foto de ${a.name}`} /><span>{a.name}</span><strong>{money(a.price)}</strong>
                   {/* 4.1.2: el nombre accesible incluye el producto ("Agregar Pack Ají") */}
                   <motion.button whileTap={{ scale: 0.94 }} className={`btn sm ${on ? 'ghost' : ''}`} aria-pressed={on} onClick={() => dispatch({ type: 'addon', v: a.id })}>
-                    {on ? <><span aria-hidden="true">✓ </span>Agregado</> : 'Agregar'}<span className="sr-only"> {a.name}</span>
+                    {on ? <><Icon name="check" /> Agregado</> : 'Agregar'}<span className="sr-only"> {a.name}</span>
                   </motion.button>
                 </motion.div>
               );

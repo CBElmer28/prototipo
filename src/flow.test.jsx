@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, waitFor, within, configure } from '@testing-library/react';
+import { render, screen, waitFor, within, configure, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { HashRouter } from 'react-router-dom';
 import App from './App.jsx';
@@ -109,16 +109,25 @@ describe('opciones de accesibilidad', () => {
     const dlg = await screen.findByRole('dialog', { name: 'Opciones de accesibilidad' });
     await user.click(within(dlg).getByRole('button', { name: /Oscuro/ }));
     expect(h.dataset.theme).toBe('dark');
-    await user.click(within(dlg).getByRole('switch', { name: 'Alto contraste' }));
-    expect(h.classList.contains('hc')).toBe(true);
+    // contraste regulable con deslizador
+    fireEvent.change(within(dlg).getByRole('slider', { name: /Contraste/ }), { target: { value: '75' } });
+    expect(h.style.getPropertyValue('--hcp')).toBe('75%');
+    expect(within(dlg).getByRole('slider', { name: /Contraste/ }).getAttribute('aria-valuetext')).toBe('Alto');
     await user.click(within(dlg).getByRole('button', { name: '150 %' }));
     expect(h.style.fontSize).toBe('150%');
     expect(h.classList.contains('zoom-xl')).toBe(true);
+    // con la lupa al 150 % el ancho útil no alcanza: la cabecera pasa a botón Menú
+    await waitFor(() => expect(h.classList.contains('narrow')).toBe(true));
+    await user.click(within(dlg).getByRole('button', { name: /Deuteranopia/ }));
+    expect(h.classList.contains('cvd-deutan')).toBe(true);
+    await user.click(within(dlg).getByRole('button', { name: /Monocromía/ }));
+    expect(h.classList.contains('cvd-achro')).toBe(true);
+    expect(h.classList.contains('cvd-deutan')).toBe(false);
     await user.click(within(dlg).getByRole('switch', { name: 'Lectura fácil' }));
     expect(h.classList.contains('simple')).toBe(true);
     expect(JSON.parse(localStorage.getItem('pardos_v3_a11y')).simple).toBe(true);
     await user.click(within(dlg).getByRole('button', { name: 'Restablecer todo' }));
-    expect(h.classList.contains('hc')).toBe(false);
+    expect(h.style.getPropertyValue('--hcp')).toBe('0%');
     expect(h.style.fontSize).toBe('100%');
     await user.keyboard('{Escape}');
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
@@ -126,10 +135,21 @@ describe('opciones de accesibilidad', () => {
     await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Accesibilidad' })));
   });
 
+  it('cabecera adaptable: con la lupa al 200 % aparece el botón Menú', async () => {
+    const user = setup();
+    await user.click(await screen.findByRole('button', { name: 'Lupa' }));
+    for (let i = 0; i < 4; i++) await user.click(screen.getByRole('button', { name: 'Ampliar pantalla' }));
+    const menu = await screen.findByRole('button', { name: /Menú/ });
+    expect(screen.queryByRole('navigation', { name: 'Principal' })).toBeNull();
+    await user.click(menu);
+    expect(screen.getByRole('navigation', { name: 'Principal' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Carta' })).toBeTruthy();
+  });
+
   it('lupa flotante: amplía y reduce la pantalla', async () => {
     const user = setup();
     const h = document.documentElement;
-    await user.click(await screen.findByRole('button', { name: 'Lupa: ampliar pantalla' }));
+    await user.click(await screen.findByRole('button', { name: 'Lupa' }));
     await user.click(screen.getByRole('button', { name: 'Ampliar pantalla' }));
     await user.click(screen.getByRole('button', { name: 'Ampliar pantalla' }));
     expect(h.style.fontSize).toBe('150%');
